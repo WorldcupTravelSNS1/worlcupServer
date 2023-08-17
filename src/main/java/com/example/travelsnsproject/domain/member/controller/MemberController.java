@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/board/member")
+@RequestMapping("/api/v1/member")
 public class MemberController {
     private final MemberService memberService;
 
-    @GetMapping("/{memberid}")
+    @GetMapping("/{memberId}")
     public MemberDto getMember(@PathVariable("memberId") Long memberId){
         //멤버 리턴
         return memberService.getMemberDtoById(memberId);

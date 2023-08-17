@@ -27,6 +27,10 @@ public class BoardService {
         return new BoardSaveResponse(thisBoard);
     }
 
+    public void saveBoard(Board board){
+        Board thisBoard = boardRepository.save(board);
+    }
+
     public void deleteBoard(Long boardId){
         boardRepository.deleteById(boardId);
     }

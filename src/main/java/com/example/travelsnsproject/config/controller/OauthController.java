@@ -20,7 +20,10 @@ public class OauthController {
     public String SignInAndLogin(@Param("code") String code){
         String accessToken = oauthService.getAccessToken(code);
         Map userInfo = oauthService.getUserInfo(accessToken);
-        return oauthService.loginCheck(userInfo);
+
+        String token= oauthService.loginCheck(userInfo);
+        System.out.println(token);
+        return token;
     }
 
 
