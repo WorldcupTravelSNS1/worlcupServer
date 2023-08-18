@@ -16,6 +16,6 @@ public class GetBoardRequest {
     private String title;
     private String content;
     private String tema;
-    private Integer pageNumber;
-    private Integer PageSize;
+    private Integer pageNumber=0;
+    private Integer PageSize=10;
 }

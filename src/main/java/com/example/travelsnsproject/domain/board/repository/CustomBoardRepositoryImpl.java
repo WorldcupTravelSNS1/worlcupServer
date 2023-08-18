@@ -12,6 +12,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -19,22 +20,21 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class CustomBoardRepositoryImpl implements CustomBoardRepository{
 
     private QBoard qBoard = QBoard.board;
     private QMember qMember = QMember.member;
 
-    @PersistenceContext
-    private EntityManager entityManager;
+//    @PersistenceContext
+//    private EntityManager entityManager;
+//
+//    @Bean
+//    public JPAQueryFactory jpaQueryFactory(){
+//        return new JPAQueryFactory(entityManager);
+//    }
 
-    @Bean
-    public JPAQueryFactory jpaQueryFactory(){
-        return new JPAQueryFactory(entityManager);
-    }
-
-    private JPAQueryFactory queryFactory;
+    private final JPAQueryFactory queryFactory;
 
     @Override
     public Page<BoardGetResponse> getBoard(GetBoardRequest getBoardRequest) {

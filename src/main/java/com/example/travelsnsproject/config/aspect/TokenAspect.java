@@ -7,11 +7,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 
 @Aspect
+@Component
 @RequiredArgsConstructor
 public class TokenAspect {
     private final TokenService tokenService;
@@ -22,11 +24,15 @@ public class TokenAspect {
         String auth = httpServletRequest.getHeader("Authorization");
         System.out.println(auth);
         if (auth==null){
-            new NoTokenException("토큰없다");
+            throw new NoTokenException("토큰없다");
         }else{
             Boolean check = tokenService.checkToken(auth);
             if (!check){
-                new NotValidToken("유효하지 않은 토큰");
+                try {
+                    throw new NotValidToken("유효하지 않은 토큰");
+                } catch (NotValidToken e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
         //토큰 유효성도 검사해야함

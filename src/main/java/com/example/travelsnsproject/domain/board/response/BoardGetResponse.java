@@ -1,6 +1,7 @@
 package com.example.travelsnsproject.domain.board.response;
 
 
+import com.example.travelsnsproject.config.Dto.CommentDto;
 import com.example.travelsnsproject.config.Dto.MemberDto;
 import com.example.travelsnsproject.config.entity.Board;
 import com.example.travelsnsproject.config.entity.Comment;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -28,7 +30,7 @@ public class BoardGetResponse{
 
 
     private MemberDto member;
-    private List<Comment> comments;
+    private List<CommentDto> comments;
 
     @QueryProjection
     public BoardGetResponse(Board board){
@@ -39,7 +41,9 @@ public class BoardGetResponse{
         this.tema= board.getTema();
         this.likeCount= board.getLikeCount();
         this.member=new MemberDto(board.getMember());
-        this.comments=board.getComments();
+        this.comments=board.getComments().stream().
+                map(comment -> new CommentDto(comment))
+                .toList();
     }
 
 }
