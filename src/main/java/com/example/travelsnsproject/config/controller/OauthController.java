@@ -24,7 +24,7 @@ public class OauthController {
 
         String token= oauthService.loginCheck(userInfo);
 
-        return token;
+        return "http://localhost:3000/api/v1/worldcup";
     }
 
 
