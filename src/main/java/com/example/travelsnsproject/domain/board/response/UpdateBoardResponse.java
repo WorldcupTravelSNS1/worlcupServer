@@ -1,4 +1,5 @@
-package com.example.travelsnsproject.domain.board.request;
+package com.example.travelsnsproject.domain.board.response;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -6,13 +7,10 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Setter
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateBoardRequest {
-    private String title;
-    private String content;
+@Setter
+@Getter
+public class UpdateBoardResponse {
     private List<Long> boardImageId;
-    private List<String> imageUrl;
 }

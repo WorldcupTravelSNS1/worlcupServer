@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-@RestController
+@Controller
 @RequestMapping("/login/oauth/code/google")
 @RequiredArgsConstructor
 public class OauthController {
     private final OauthService oauthService;
 
     @GetMapping
-    public String SignInAndLogin(@Param("code") String code){
+    public String SignInAndLogin(@Param("code") String code) {
         String accessToken = oauthService.getAccessToken(code);
         Map userInfo = oauthService.getUserInfo(accessToken);
 
         String token= oauthService.loginCheck(userInfo);
-        System.out.println(token);
+
         return token;
     }
 

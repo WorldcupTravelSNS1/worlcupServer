@@ -26,26 +26,25 @@ public class LikeService {
         Optional<LikeCount> likeCount= likeRepository.findByMemberIdAndBodarId(member,board);
         LikeCount check = likeCount.orElse(null);
         if (check == null){
-            LikePlus(check);
+            LikePlus(member,board);
         }
         else {
-            likeRepository.delete(check);
+            LikeMinus(check);
         }
         return null;
     }
 
-    public void LikePlus(LikeCount likeCount){
-        LikeCount likeCount1=likeRepository.save(likeCount);
-        Board board=likeCount1.getBoard();
-        board.setLikeCount(board.getLikeCount()+1);
-        boardService.saveBoard(board);
+    public void LikePlus(Member member, Board board){
+        LikeCount likeCount1=likeRepository.save(new LikeCount(null,board,member));
+        Board board1=likeCount1.getBoard();
+        board1.setLikeCount(board1.getLikeCount()+1);
+//        boardService.saveBoard(board1);jpa는 자동 update
     }
 
     public void LikeMinus(LikeCount likeCount){
         Board board=likeCount.getBoard();
         board.setLikeCount(board.getLikeCount()-1);
         likeRepository.delete(likeCount);
-        boardService.saveBoard(board);
     }
 
 

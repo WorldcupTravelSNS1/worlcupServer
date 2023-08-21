@@ -22,7 +22,6 @@ public class TokenAspect {
     public void tokenCheck(){
         HttpServletRequest httpServletRequest =  ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         String auth = httpServletRequest.getHeader("Authorization");
-        System.out.println(auth);
         if (auth==null){
             throw new NoTokenException("토큰없다");
         }else{
@@ -38,3 +37,5 @@ public class TokenAspect {
         //토큰 유효성도 검사해야함
     }
 }
+
+

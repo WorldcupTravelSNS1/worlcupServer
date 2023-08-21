@@ -28,7 +28,8 @@ public class CommentService {
     public void updateComment(Long commentId, UpdateCommentRequest updateCommentRequest){
         Comment comment = commentRepository.findById(commentId).get();
         comment.setComment(updateCommentRequest.getComment());
-        commentRepository.save(comment);
+//        commentRepository.save(comment);
     }
+
 
 }

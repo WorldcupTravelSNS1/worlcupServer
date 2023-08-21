@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,6 +17,7 @@ public class BoardSaveResponse {
     private Long id;
     private LocalDateTime createAt;
     private Long memberId;
+    private List<Long> boardImageId;
 
     public BoardSaveResponse(Board board){
         this.id = board.getId();

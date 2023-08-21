@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -14,4 +16,5 @@ public class SaveBoardRequest {
     private String title;
     private String content;
     private String tema;
+    private List<String> imageUrl;
 }

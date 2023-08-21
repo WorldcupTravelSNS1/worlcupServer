@@ -6,6 +6,7 @@ import com.example.travelsnsproject.domain.board.request.SaveBoardRequest;
 import com.example.travelsnsproject.domain.board.request.UpdateBoardRequest;
 import com.example.travelsnsproject.domain.board.response.BoardGetResponse;
 import com.example.travelsnsproject.domain.board.response.BoardSaveResponse;
+import com.example.travelsnsproject.domain.board.response.UpdateBoardResponse;
 import com.example.travelsnsproject.domain.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -44,9 +45,9 @@ public class BoardController {
 
     @TokenCheck
     @PutMapping("/{boardid}")
-    public void updateBoard(@PathVariable("boardid")Long boardId,
-                            @RequestBody UpdateBoardRequest updateBoardRequest){
-        boardService.updateBoard(boardId,updateBoardRequest);
+    public UpdateBoardResponse updateBoard(@PathVariable("boardid")Long boardId,
+                                           @RequestBody UpdateBoardRequest updateBoardRequest){
+        return boardService.updateBoard(boardId,updateBoardRequest);
     }
 
 }

@@ -1,9 +1,11 @@
 package com.example.travelsnsproject.domain.board.response;
 
 
+import com.example.travelsnsproject.config.Dto.BoardImageDto;
 import com.example.travelsnsproject.config.Dto.CommentDto;
 import com.example.travelsnsproject.config.Dto.MemberDto;
 import com.example.travelsnsproject.config.entity.Board;
+import com.example.travelsnsproject.config.entity.BoardImage;
 import com.example.travelsnsproject.config.entity.Comment;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;
@@ -27,10 +29,13 @@ public class BoardGetResponse{
     private LocalDateTime createAt;
     private String tema;
     private Integer likeCount;
+    private Long memberId;
+    private String memberName;
+    private String boardImages;
 
 
-    private MemberDto member;
-    private List<CommentDto> comments;
+//    private MemberDto member;
+//    private List<CommentDto> comments;
 
     @QueryProjection
     public BoardGetResponse(Board board){
@@ -40,10 +45,9 @@ public class BoardGetResponse{
         this.createAt=board.getCreateAt();
         this.tema= board.getTema();
         this.likeCount= board.getLikeCount();
-        this.member=new MemberDto(board.getMember());
-        this.comments=board.getComments().stream().
-                map(comment -> new CommentDto(comment))
-                .toList();
+        this.memberId = getMemberId();
+        this.memberName = getMemberName();
+        this.boardImages = getBoardImages();
     }
 
 }

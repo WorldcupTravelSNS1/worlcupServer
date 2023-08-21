@@ -34,6 +34,9 @@ public class Board {
     @OneToMany(mappedBy = "board")
     private List<LikeCount> likes;
 
+    @OneToMany(mappedBy = "board")
+    private List<BoardImage> boardImages;
+
     public Board(SaveBoardRequest saveBoardRequest){
         this.id = null;
         this.title = saveBoardRequest.getTitle();
