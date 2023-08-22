@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -52,21 +53,36 @@ public class OauthService {
                 .block();
         return reponse;
     }
-    public String loginCheck(Map userInfo){
+
+    public Map<String,Object> loginCheck(Map userInfo){
         Optional<Member> member1 = memberService.findByEmailId((String) userInfo.get("id"));
         Member member = member1.orElse(null);
-        String token = null;
+        Map<String,Object> tokenAndMemberId = new HashMap<>();
+
         if (member != null){
-            token = tokenService.makeToken(member);
+            String token = tokenService.makeToken(member);
+            tokenAndMemberId.put("token",token);
+            tokenAndMemberId.put("id",member.getId());
         }else{
-            token = signIn(userInfo);
+            tokenAndMemberId = signIn(userInfo);
         }
-        return token;
+
+        return tokenAndMemberId;
     }
 
-    public String signIn(Map userInfo){
+    public Map<String,Object> signIn(Map userInfo){
         Member member = memberService.memberSaveByUserInfo(userInfo);
-        return tokenService.makeToken(member);
+        String token = tokenService.makeToken(member);
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",member.getId());
+        map.put("token", token);
+        return map;
     }
 
 }
+
+
+
+
+
+

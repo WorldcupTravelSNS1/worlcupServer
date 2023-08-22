@@ -31,14 +31,6 @@ public class CustomBoardRepositoryImpl implements CustomBoardRepository{
     private QMember qMember = QMember.member;
     private QBoardImage qBoardImage = QBoardImage.boardImage;
 
-//    @PersistenceContext
-//    private EntityManager entityManager;
-//
-//    @Bean
-//    public JPAQueryFactory jpaQueryFactory(){
-//        return new JPAQueryFactory(entityManager);
-//    }
-
     private final JPAQueryFactory queryFactory;
 
     @Override
@@ -82,15 +74,6 @@ public class CustomBoardRepositoryImpl implements CustomBoardRepository{
                 null
                 :qBoard.content.like("%"+content+"%");
     }
-
-
-
-//    private Long id;
-//    private String title;
-//    private String content;
-//    private LocalDateTime createAt;
-//    private String tema;
-//    private Integer like;
 
 
 
