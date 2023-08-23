@@ -25,9 +25,10 @@ public class AuthController {
     ){
         Map<String,String> map = new HashMap<>();
         map.put("id",email);
-        map.put("name",nickName);
         map.put("nickName",nickName);
-        return oauthService.loginCheck(map);
+        Map<String,Object> resMap = oauthService.loginCheck(map);
+        resMap.put("nickName",nickName);
+        return resMap;
     }
 
 
