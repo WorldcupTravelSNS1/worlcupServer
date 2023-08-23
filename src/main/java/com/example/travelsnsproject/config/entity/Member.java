@@ -30,7 +30,7 @@ public class Member {
     private List<LikeCount> likes;
 
     public Member(Map userInfo){
-        this.emailId = (String)userInfo.get("id");
+        this.emailId = (String)userInfo.get("nickname");
         this.name = (String) userInfo.get("name");
         this.boards = null;
     }
