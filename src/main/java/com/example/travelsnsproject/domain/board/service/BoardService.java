@@ -30,6 +30,12 @@ public class BoardService {
         return boardRepository.getBoard(getBoardRequest);
     }
 
+
+
+    public Page<BoardGetResponse> getBlockedBoard(GetBoardRequest getBoardRequest){
+        return boardRepository.getBlockedBoard(getBoardRequest);
+    }
+
     public BoardSaveResponse saveBoard(SaveBoardRequest saveBoardRequest){
         Board thisBoard = boardRepository.save(new Board(saveBoardRequest));
 
@@ -54,6 +60,11 @@ public class BoardService {
     public void deleteBoard(Long boardId){
         Board board = boardRepository.findById(boardId).get();
         board.setIsAvailable(Boolean.FALSE);
+    }
+
+    public void restoreBoard(Long boardId){
+        Board board = boardRepository.findById(boardId).get();
+        board.setIsAvailable(Boolean.TRUE);
     }
 
     //이거 로직 개판임. 쿼리 지옥임. 쿼리 개선 필요함(bulk쿼리 해야할 것 같음)

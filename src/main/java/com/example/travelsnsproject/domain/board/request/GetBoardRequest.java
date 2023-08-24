@@ -18,4 +18,5 @@ public class GetBoardRequest {
     private String tema;
     private Integer pageNumber=0;
     private Integer PageSize=10;
+    private Long memberId;
 }

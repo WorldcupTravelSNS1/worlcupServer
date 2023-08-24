@@ -69,6 +69,42 @@ public class CustomBoardRepositoryImpl implements CustomBoardRepository{
         return new PageImpl<BoardGetResponse>(content);
     }
 
+    @Override
+    public Page<BoardGetResponse> getBlockedBoard(GetBoardRequest getBoardRequest) {
+        JPAQuery<BoardGetResponse> query = queryFactory
+                .select(Projections.constructor(BoardGetResponse.class,
+                        qBoard.id,
+                        qBoard.title,
+                        qBoard.content,
+                        qBoard.createAt,
+                        qBoard.tema,
+                        qBoard.likeCount,
+                        qMember.id,
+                        qMember.name,
+                        JPAExpressions.select(Expressions.stringTemplate("JSON_ARRAYAGG({0})", qBoardImage.imageUrl))
+                                .from(qBoardImage)
+                                .where(qBoardImage.board.id.eq(qBoard.id)), // 이미지 URL들을 JSON 배열로 변환하여 가져오는 서브쿼리
+                        qBoardImage.id != null ?
+                                JPAExpressions.select(Expressions.stringTemplate("JSON_ARRAYAGG({0})", qBoardImage.id))
+                                        .from(qBoardImage)
+                                        .where(qBoardImage.board.id.eq(qBoard.id))
+                                : null
+                ))
+                .from(qBoard)
+                .leftJoin(qBoard.member,qMember)
+                .leftJoin(qBoard.boardImages, qBoardImage)
+                .where(titleContains(getBoardRequest.getTitle()),
+                        contentContains(getBoardRequest.getContent()),
+                        qBoard.isAvailable.eq(Boolean.FALSE),
+                        qBoard.member.id.eq(getBoardRequest.getMemberId())
+                )
+                .offset(getBoardRequest.getPageNumber())
+                .groupBy(qBoard.id)
+                .limit(getBoardRequest.getPageSize());
+        List<BoardGetResponse> content = query.fetch();
+        return new PageImpl<BoardGetResponse>(content);
+    }
+
     private BooleanExpression titleContains(String title){
         return title == null?
                 null

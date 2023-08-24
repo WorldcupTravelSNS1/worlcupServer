@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 public interface CustomBoardRepository {
 
     public Page<BoardGetResponse> getBoard(GetBoardRequest getBoardRequest);
+    public Page<BoardGetResponse> getBlockedBoard(GetBoardRequest getBoardRequest);
 
 
 }
