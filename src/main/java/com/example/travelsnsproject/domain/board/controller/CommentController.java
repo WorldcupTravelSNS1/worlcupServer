@@ -4,11 +4,15 @@ package com.example.travelsnsproject.domain.board.controller;
 import com.example.travelsnsproject.config.aspect.TokenCheck;
 import com.example.travelsnsproject.domain.board.request.SaveCommentRequest;
 import com.example.travelsnsproject.domain.board.request.UpdateCommentRequest;
+import com.example.travelsnsproject.domain.board.response.CommentGetResponse;
 import com.example.travelsnsproject.domain.board.response.CommentSaveResponse;
 import com.example.travelsnsproject.domain.board.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,6 +22,12 @@ public class CommentController {
     private final CommentService commentService;
 
 //    @GetMapping("/{boardId}")
+
+    @GetMapping
+    public List<CommentGetResponse> getResponse(@Param("boardId") Long boardId){
+        return commentService.commentGetByBoardId(boardId);
+    }
+
 
     @TokenCheck
     @PostMapping("/{boardId}")

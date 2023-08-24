@@ -17,8 +17,10 @@ public class BoardImageService {
     private final BoardImageRepository boardImageRepository;
 
     public List<Long> saveBoardImageByList(List<String> imageUrls, Board board){
+        board.setBoardImages(null);
         List<Long> returnBoardImageId = new ArrayList<>();
         for(int i=0; i<imageUrls.size();i++){
+            System.out.println(imageUrls.get(i));
             BoardImage boardImage = boardImageRepository.save(new BoardImage(null,imageUrls.get(i),board));
             returnBoardImageId.add(boardImage.getId());
         }
@@ -29,6 +31,10 @@ public class BoardImageService {
         for(int i=0; i<imageIds.size(); i++){
             boardImageRepository.delete(new BoardImage(imageIds.get(i),null,null));
         }
+    }
+
+    public void deleteImageByBoardId(Long boardId){
+        boardImageRepository.deleteBoardImageByBoardId(boardId);
     }
 
 }

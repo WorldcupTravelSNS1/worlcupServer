@@ -5,10 +5,13 @@ import com.example.travelsnsproject.config.entity.Comment;
 import com.example.travelsnsproject.domain.board.repository.CommentRepository;
 import com.example.travelsnsproject.domain.board.request.SaveCommentRequest;
 import com.example.travelsnsproject.domain.board.request.UpdateCommentRequest;
+import com.example.travelsnsproject.domain.board.response.CommentGetResponse;
 import com.example.travelsnsproject.domain.board.response.CommentSaveResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +32,12 @@ public class CommentService {
         Comment comment = commentRepository.findById(commentId).get();
         comment.setComment(updateCommentRequest.getComment());
 //        commentRepository.save(comment);
+    }
+
+    public List<CommentGetResponse> commentGetByBoardId(Long boardId){
+        return commentRepository.commentGetByBoardId(boardId).stream()
+                .map(comment -> new CommentGetResponse(comment))
+                .toList();
     }
 
 

@@ -30,7 +30,9 @@ public class BoardService {
         return boardRepository.getBoard(getBoardRequest);
     }
 
-
+    public Page<BoardGetResponse> getBoardById(Long boardId){
+        return boardRepository.getBoardById(boardId);
+    }
 
     public Page<BoardGetResponse> getBlockedBoard(GetBoardRequest getBoardRequest){
         return boardRepository.getBlockedBoard(getBoardRequest);
@@ -72,14 +74,16 @@ public class BoardService {
         Board thisBoard = boardRepository.findById(boardId).get();
         thisBoard.setContent(updateBoardRequest.getContent());
         thisBoard.setTitle(updateBoardRequest.getTitle());
+        boardImageService.deleteImageByBoardId(boardId);
+        boardImageService.saveBoardImageByList(updateBoardRequest.getImageUrl(),thisBoard);
         //프론트에서 이미지가 바뀐 경우에 서버에 BoardImageId보내서 수정하고, 수정한 boardImageId 반환함
-        UpdateBoardResponse updateBoardResponse = new UpdateBoardResponse();
-        if (updateBoardRequest.getBoardImageId()!=null){
-            boardImageService.deleteByIds(updateBoardRequest.getBoardImageId());
-            List<Long> boardImageId = boardImageService.saveBoardImageByList(updateBoardRequest.getImageUrl(), thisBoard);
-            updateBoardResponse.setBoardImageId(boardImageId);
-        }
-        return updateBoardResponse;
+//        UpdateBoardResponse updateBoardResponse = new UpdateBoardResponse();
+//        if (updateBoardRequest.getBoardImageId()!=null){
+//            boardImageService.deleteByIds(updateBoardRequest.getBoardImageId());
+//            List<Long> boardImageId = boardImageService.saveBoardImageByList(updateBoardRequest.getImageUrl(), thisBoard);
+//            updateBoardResponse.setBoardImageId(boardImageId);
+//        }
+        return null;
     }
 
 }

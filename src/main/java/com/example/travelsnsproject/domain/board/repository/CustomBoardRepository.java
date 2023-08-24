@@ -10,5 +10,5 @@ public interface CustomBoardRepository {
     public Page<BoardGetResponse> getBoard(GetBoardRequest getBoardRequest);
     public Page<BoardGetResponse> getBlockedBoard(GetBoardRequest getBoardRequest);
 
-
+    public Page<BoardGetResponse> getBoardById(Long boardId);
 }

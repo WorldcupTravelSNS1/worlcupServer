@@ -27,6 +27,13 @@ public class BoardController {
         return boardService.getBoard(getBoardRequest);
     }
 
+    @GetMapping("{boardId}")
+    public Page<BoardGetResponse> getBoard(
+            @PathVariable("boardId") Long boardId){
+        //동적 쿼리 만들어서 리턴
+        return boardService.getBoardById(boardId);
+    }
+
     @GetMapping("/blocked")
     public Page<BoardGetResponse> getBlockedBoard(
             GetBoardRequest getBoardRequest){
