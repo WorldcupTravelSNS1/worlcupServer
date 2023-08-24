@@ -22,27 +22,25 @@ public class LikeService {
 
     public LikeDto saveOrDeleteLike(Long memberId, Long boardId){
         Member member = Member.builder().id(memberId).build();
-        Board board = Board.builder().id(boardId).build();
+        Board board = boardService.findById(boardId);
         Optional<LikeCount> likeCount= likeRepository.findByMemberIdAndBodarId(member,board);
         LikeCount check = likeCount.orElse(null);
         if (check == null){
             LikePlus(member,board);
         }
         else {
-            LikeMinus(check);
+            LikeMinus(check, board);
         }
         return null;
     }
 
     public void LikePlus(Member member, Board board){
         LikeCount likeCount1=likeRepository.save(new LikeCount(null,board,member));
-        Board board1=likeCount1.getBoard();
-        board1.setLikeCount(board1.getLikeCount()+1);
-//        boardService.saveBoard(board1);jpa는 자동 update
+        //여기서 로직 오류가 발생
+        board.setLikeCount(board.getLikeCount()+1);
     }
 
-    public void LikeMinus(LikeCount likeCount){
-        Board board=likeCount.getBoard();
+    public void LikeMinus(LikeCount likeCount,Board board){
         board.setLikeCount(board.getLikeCount()-1);
         likeRepository.delete(likeCount);
     }

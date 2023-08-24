@@ -21,13 +21,13 @@ public class AuthController {
     @GetMapping
     public Map<String,Object> SingUpAndLogin(
             @Param("email") String email,
-            @Param("nickname") String nickName
+            @Param("nickname") String nickname
     ){
         Map<String,String> map = new HashMap<>();
         map.put("id",email);
-        map.put("nickName",nickName);
+        map.put("nickname",nickname);
         Map<String,Object> resMap = oauthService.loginCheck(map);
-        resMap.put("nickName",nickName);
+        resMap.put("nickname",nickname);
         return resMap;
     }
 

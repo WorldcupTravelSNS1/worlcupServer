@@ -47,14 +47,20 @@ public class CustomBoardRepositoryImpl implements CustomBoardRepository{
                         qMember.name,
                         JPAExpressions.select(Expressions.stringTemplate("JSON_ARRAYAGG({0})", qBoardImage.imageUrl))
                                 .from(qBoardImage)
-                                .where(qBoardImage.board.id.eq(qBoard.id)) // 이미지 URL들을 JSON 배열로 변환하여 가져오는 서브쿼리
+                                .where(qBoardImage.board.id.eq(qBoard.id)), // 이미지 URL들을 JSON 배열로 변환하여 가져오는 서브쿼리
+                        qBoardImage.id != null ?
+                                JPAExpressions.select(Expressions.stringTemplate("JSON_ARRAYAGG({0})", qBoardImage.id))
+                                        .from(qBoardImage)
+                                        .where(qBoardImage.board.id.eq(qBoard.id))
+                                : null
                 ))
                 .from(qBoard)
                 .leftJoin(qBoard.member,qMember)
                 .leftJoin(qBoard.boardImages, qBoardImage)
                 .where(titleContains(getBoardRequest.getTitle()),
                         contentContains(getBoardRequest.getContent()),
-                        qBoard.tema.eq(getBoardRequest.getTema())
+                        qBoard.tema.eq(getBoardRequest.getTema()),
+                        qBoard.isAvailable.eq(Boolean.TRUE)
                         )
                 .offset(getBoardRequest.getPageNumber())
                 .groupBy(qBoard.id)

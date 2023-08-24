@@ -6,17 +6,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/api/v1/like")
 @RequiredArgsConstructor
 @CrossOrigin("*")
 public class LikeController {
-    private LikeService likeService;
+    private final LikeService likeService;
 
     @PostMapping("/{boardid}/{memberid}")
     public void LikeSaveOrDelete(@PathVariable("memberid") Long memberId,
                               @PathVariable("boardid") Long boardId){
         likeService.saveOrDeleteLike(memberId, boardId);
     }
+
 
 }

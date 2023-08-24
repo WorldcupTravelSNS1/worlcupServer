@@ -22,6 +22,10 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final BoardImageService boardImageService;
 
+    public Board findById(Long boardId){
+        return boardRepository.findById(boardId).get();
+    }
+
     public Page<BoardGetResponse> getBoard(GetBoardRequest getBoardRequest){
         return boardRepository.getBoard(getBoardRequest);
     }
@@ -48,7 +52,8 @@ public class BoardService {
     }
 
     public void deleteBoard(Long boardId){
-        boardRepository.deleteById(boardId);
+        Board board = boardRepository.findById(boardId).get();
+        board.setIsAvailable(Boolean.FALSE);
     }
 
     //이거 로직 개판임. 쿼리 지옥임. 쿼리 개선 필요함(bulk쿼리 해야할 것 같음)

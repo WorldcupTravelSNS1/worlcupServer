@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
     private final CommentService commentService;
 
+//    @GetMapping("/{boardId}")
+
     @TokenCheck
     @PostMapping("/{boardId}")
     public CommentSaveResponse saveComment(@PathVariable("boardId")Long boardId,

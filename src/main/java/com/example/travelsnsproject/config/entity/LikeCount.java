@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -24,4 +23,8 @@ public class LikeCount {//좋아요entity (like가 mysql like랑 겹쳐서 likeC
     @ManyToOne
     private Member member;
 
+    @Override
+    public String toString() {
+        return ""+this.board.getId()+" "+this.member.getId()+" "+ this.id;
+    }
 }

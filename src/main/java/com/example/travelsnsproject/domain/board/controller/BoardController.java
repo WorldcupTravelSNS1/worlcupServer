@@ -24,8 +24,6 @@ public class BoardController {
     public Page<BoardGetResponse> getBoard(
             GetBoardRequest getBoardRequest){
         //동적 쿼리 만들어서 리턴
-        //여기서 fetchjoin해서 리턴해야 훨씬 효율적인데 따로 규현하지 않고 리턴하고있다.
-        //차후에 고도화할 때 fetchjoin하고, BoardResponse를 만들어서 리턴하도록 하자
         return boardService.getBoard(getBoardRequest);
     }
 
@@ -41,6 +39,8 @@ public class BoardController {
     public void deleteBoard(@PathVariable("boardid")Long boardId){
         //board삭제기능 구현 -> 작성자만 삭제 가능(생각해보니까 이걸 굳이 여기서 해야하나?)
         //token에서 멤버
+        //boardImage부터 먼저 다 삭제하고 삭제하도록 재 구현해야함
+        //원래 위의 로직이었지만 isAvailable을 추가하여 해당
         boardService.deleteBoard(boardId);
     }
 

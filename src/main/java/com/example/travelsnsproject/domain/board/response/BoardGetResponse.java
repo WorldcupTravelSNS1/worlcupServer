@@ -7,6 +7,7 @@ import com.example.travelsnsproject.config.Dto.MemberDto;
 import com.example.travelsnsproject.config.entity.Board;
 import com.example.travelsnsproject.config.entity.BoardImage;
 import com.example.travelsnsproject.config.entity.Comment;
+import com.querydsl.core.Tuple;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,7 +33,7 @@ public class BoardGetResponse{
     private Long memberId;
     private String memberName;
     private String boardImages;
-
+    private String boardImageIds;
 
 //    private MemberDto member;
 //    private List<CommentDto> comments;
@@ -48,6 +49,7 @@ public class BoardGetResponse{
         this.memberId = getMemberId();
         this.memberName = getMemberName();
         this.boardImages = getBoardImages();
+        this.boardImageIds = getBoardImageIds();
     }
 
 }

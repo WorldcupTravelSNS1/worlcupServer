@@ -22,8 +22,8 @@ public class Board {
     private String content;
     private LocalDateTime createAt;
     private String tema;
-    private Integer likeCount;
-
+    private Integer likeCount=0;
+    private Boolean isAvailable = Boolean.TRUE;
 
     @ManyToOne
     private Member member;
